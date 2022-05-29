@@ -17,7 +17,7 @@ router.get('/:code', async (req, res) => {
     res.status(404).json('Ссылка не найдена')
 
   } catch (e) {
-    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })  // ловим
   }
 })
 

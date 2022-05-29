@@ -17,25 +17,25 @@ router.post(
   ],
   async (req, res) => {
   try {
-    const errors = validationResult(req)
+    const errors = validationResult(req)  // проверяем поля
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
-        message: 'Некорректный данные при регистрации'
+        message: 'Некорректные данные при регистрации'
       })
     }
 
     const {email, password} = req.body
 
-    const candidate = await User.findOne({ email })
+    const candidate = await User.findOne({ email }) // ждем пока бд ищет емейл
 
     if (candidate) {
-      return res.status(400).json({ message: 'Такой пользователь уже существует' })
+      return res.status(400).json({ message: 'Такой пользователь уже существует' }) // нашли
     }
 
     const hashedPassword = await bcrypt.hash(password, 12)
-    const user = new User({ email, password: hashedPassword })
+    const user = new User({ email, password: hashedPassword })  // создаем пользователя
 
     await user.save()
 
@@ -55,10 +55,10 @@ router.post(
   ],
   async (req, res) => {
   try {
-    const errors = validationResult(req)
+    const errors = validationResult(req)  // проверяем
 
     if (!errors.isEmpty()) {
-      return res.status(400).json({
+      return res.status(400).json({       // выкидываем ошибку
         errors: errors.array(),
         message: 'Некорректный данные при входе в систему'
       })
